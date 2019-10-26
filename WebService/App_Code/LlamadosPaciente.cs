@@ -14,17 +14,19 @@ using System.Web.Services;
 public class LlamadosPaciente : System.Web.Services.WebService
 {
 
-    public LlamadosPaciente()
-    {
-
-        //Elimine la marca de comentario de la línea siguiente si utiliza los componentes diseñados 
-        //InitializeComponent(); 
-    }
-
     [WebMethod]
     public string HelloWorld()
     {
         return "Hola a todos";
+    }
+
+    [WebMethod]
+    public ResponseLlamado AddPaciente(RequestLlamado request)
+    {
+        ResponseLlamado response = new ResponseLlamado();
+        response.codigo = 0;
+        response.mensaje = "Exito";
+        return response;
     }
 
 }
