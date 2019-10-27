@@ -134,7 +134,7 @@ AS
 	WHERE a.idEstado = 1 AND a.id > @lastIdAtencion ORDER BY a.id ASC
 GO
 
--- test
+-- test de carga
 EXEC sp_insertar_atencion '21-09-2019', 'Pablo Sepulveda', 1, 'Adriano Castillo', 'C00019'
 EXEC sp_update_estado_atendido 5
 select * from Paciente
