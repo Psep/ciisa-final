@@ -1,0 +1,54 @@
+﻿@using LlamadoPacientes.Models;
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<form id="frmHome" method="post" action="@Url.Action("Index", "Home")">
+    <input id="posicion" name="posicion" type="hidden" value="@ViewBag.posicion" />
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Atención</h2>
+            @{
+                var listaCarrusel = ViewBag.listaCarrusel;
+            }
+            @foreach (var carrusel in listaCarrusel)
+            {
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Código Paciente @carrusel.paciente.codigo</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Box N° @carrusel.box.numero
+                        </p>
+                        <p>
+                            @carrusel.box.profesional.nombre
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <h2>Últimos Llamados</h2>
+            @{
+                var listaAtencion = ViewBag.listaAtencion;
+            }
+            @foreach (var atencion in listaAtencion)
+            {
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Código Paciente @atencion.paciente.codigo</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Box N° @atencion.box.numero
+                        </p>
+                        <p>
+                            @atencion.box.profesional.nombre
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</form>

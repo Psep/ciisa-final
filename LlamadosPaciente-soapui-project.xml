@@ -95,22 +95,22 @@
       <soap12:address location="http://localhost:49209/LlamadosPaciente.asmx"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint></con:endpoints><con:operation id="b084bcdb-ea43-40e9-8324-dfc445aa3401" isOneWay="false" action="http://tempuri.org/CreateAtencion" name="CreateAtencion" bindingOperationName="CreateAtencion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e6ccd3cd-e43d-43f1-b6e1-ea2fac683b6f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint></con:endpoints><con:operation id="b084bcdb-ea43-40e9-8324-dfc445aa3401" isOneWay="false" action="http://tempuri.org/CreateAtencion" name="CreateAtencion" bindingOperationName="CreateAtencion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e6ccd3cd-e43d-43f1-b6e1-ea2fac683b6f" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">\r
    <soap:Header/>\r
    <soap:Body>\r
       <tem:CreateAtencion>\r
          <!--Optional:-->\r
          <tem:request>\r
             <!--Optional:-->\r
-            <tem:nombreDoctor>?</tem:nombreDoctor>\r
-            <tem:box>?</tem:box>\r
+            <tem:nombreDoctor>Pablo Sepúlveda</tem:nombreDoctor>\r
+            <tem:box>7</tem:box>\r
             <!--Optional:-->\r
-            <tem:nombrePaciente>?</tem:nombrePaciente>\r
+            <tem:nombrePaciente>Soledad Flores</tem:nombrePaciente>\r
             <!--Optional:-->\r
-            <tem:codigoPaciente>?</tem:codigoPaciente>\r
+            <tem:codigoPaciente>C0098761</tem:codigoPaciente>\r
             <!--Optional:-->\r
-            <tem:fecha>?</tem:fecha>\r
+            <tem:fecha>12-02-2019</tem:fecha>\r
          </tem:request>\r
       </tem:CreateAtencion>\r
    </soap:Body>\r
-</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/LlamadosPacienteSoap/CreateAtencionRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/LlamadosPacienteSoap/CreateAtencionRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
