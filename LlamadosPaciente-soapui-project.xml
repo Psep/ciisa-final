@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="2d98db6f-64b2-44a5-bfd3-c62724e7e032" activeEnvironment="Default" name="LlamadosPaciente" resourceRoot="" soapui-version="5.5.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="259e87f9-3082-4198-9967-ecabd70f8a5c" wsaVersion="NONE" name="LlamadosPacienteSoap" type="wsdl" bindingName="{http://tempuri.org/}LlamadosPacienteSoap" soapVersion="1_1" anonymous="optional" definition="http://localhost:49209/LlamadosPaciente.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint></con:endpoints><con:operation id="eae654f7-774b-4841-bfda-6ca24f3dbc27" isOneWay="false" action="http://tempuri.org/CreateAtencion" name="CreateAtencion" bindingOperationName="CreateAtencion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2d30e230-c04b-4a32-a90b-5528328b523b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:CreateAtencion>\r
+         <!--Optional:-->\r
+         <tem:request>\r
+            <!--Optional:-->\r
+            <tem:nombreDoctor>?</tem:nombreDoctor>\r
+            <tem:box>?</tem:box>\r
+            <!--Optional:-->\r
+            <tem:nombrePaciente>?</tem:nombrePaciente>\r
+            <!--Optional:-->\r
+            <tem:codigoPaciente>?</tem:codigoPaciente>\r
+            <!--Optional:-->\r
+            <tem:fecha>?</tem:fecha>\r
+         </tem:request>\r
+      </tem:CreateAtencion>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/CreateAtencion"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="a03bfeb3-46f7-483b-b400-9b159be7bc7c" wsaVersion="NONE" name="LlamadosPacienteSoap12" type="wsdl" bindingName="{http://tempuri.org/}LlamadosPacienteSoap12" soapVersion="1_2" anonymous="optional" definition="http://localhost:49209/LlamadosPaciente.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:49209/LlamadosPaciente.asmx?WSDL"><con:part><con:url>http://localhost:49209/LlamadosPaciente.asmx?WSDL</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CreateAtencion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:RequestLlamado"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RequestLlamado">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nombreDoctor" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="box" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="nombrePaciente" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="codigoPaciente" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="fecha" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateAtencionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateAtencionResult" type="tns:ResponseLlamado"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseLlamado">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="codigo" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="mensaje" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateAtencionSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateAtencion"/>
+  </wsdl:message>
+  <wsdl:message name="CreateAtencionSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateAtencionResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="LlamadosPacienteSoap">
+    <wsdl:operation name="CreateAtencion">
+      <wsdl:input message="tns:CreateAtencionSoapIn"/>
+      <wsdl:output message="tns:CreateAtencionSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LlamadosPacienteSoap" type="tns:LlamadosPacienteSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CreateAtencion">
+      <soap:operation soapAction="http://tempuri.org/CreateAtencion" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LlamadosPacienteSoap12" type="tns:LlamadosPacienteSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CreateAtencion">
+      <soap12:operation soapAction="http://tempuri.org/CreateAtencion" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LlamadosPaciente">
+    <wsdl:port name="LlamadosPacienteSoap" binding="tns:LlamadosPacienteSoap">
+      <soap:address location="http://localhost:49209/LlamadosPaciente.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="LlamadosPacienteSoap12" binding="tns:LlamadosPacienteSoap12">
+      <soap12:address location="http://localhost:49209/LlamadosPaciente.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint></con:endpoints><con:operation id="b084bcdb-ea43-40e9-8324-dfc445aa3401" isOneWay="false" action="http://tempuri.org/CreateAtencion" name="CreateAtencion" bindingOperationName="CreateAtencion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e6ccd3cd-e43d-43f1-b6e1-ea2fac683b6f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:49209/LlamadosPaciente.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">\r
+   <soap:Header/>\r
+   <soap:Body>\r
+      <tem:CreateAtencion>\r
+         <!--Optional:-->\r
+         <tem:request>\r
+            <!--Optional:-->\r
+            <tem:nombreDoctor>?</tem:nombreDoctor>\r
+            <tem:box>?</tem:box>\r
+            <!--Optional:-->\r
+            <tem:nombrePaciente>?</tem:nombrePaciente>\r
+            <!--Optional:-->\r
+            <tem:codigoPaciente>?</tem:codigoPaciente>\r
+            <!--Optional:-->\r
+            <tem:fecha>?</tem:fecha>\r
+         </tem:request>\r
+      </tem:CreateAtencion>\r
+   </soap:Body>\r
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/LlamadosPacienteSoap/CreateAtencionRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
