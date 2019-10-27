@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using LlamadoPacientes.Models;
 using LlamadoPacientes.Models.Repository;
@@ -12,16 +11,14 @@ namespace LlamadoPacientes.Controllers
     public class HomeController : Controller
     {
         private AtencionRepository atencionRepository;
-
-        public List<Atencion> listAtencion { get; set; }
-        public List<Atencion> listAtencionCarrusel { get; set; }
+        static List<Atencion> ListAtencionCarrusel;
 
         [HttpGet]
         public ActionResult Index()
         {
             this.init(0);
-            ViewBag.lastId = 0;
-
+            ViewBag.lastId = this.LastId();
+            this.SetTimer();
             return View();
         }
 
@@ -29,52 +26,62 @@ namespace LlamadoPacientes.Controllers
         public ActionResult Index(string lastId)
         {
             int id = Int32.Parse(lastId);
-
             this.init(id);
+            ViewBag.lastId = this.LastId();
 
-            if (this.listAtencionCarrusel.Count() < 4)
+            return View();
+        }
+
+        private int LastId()
+        {
+            if (ListAtencionCarrusel.Count() < 4)
             {
-                ViewBag.lastId = 0;
+                return 0;
             }
             else
             {
-                ViewBag.lastId = this.listAtencionCarrusel.Last().id;
+                return ListAtencionCarrusel.Last().id;
             }
-
-            return View();
         }
 
         private void SetTimer()
         {
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            timer.Interval = 10000;
+            //TODO: 40000 = 40 segundos, 20 min = 1200000
+            timer.Interval = 40000;
             timer.Enabled = true;
         }
 
         private static void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            //TODO terminar Debug
+            if (ListAtencionCarrusel != null && ListAtencionCarrusel.Count() > 0)
+            {
+                foreach(Atencion item in ListAtencionCarrusel)
+                {
+                    AtencionRepository repository = new AtencionRepository();
+                    repository.Update(item.id);
+                }
+            }
         }
 
         private void init(int lastId)
         {
-            this.loadAtenciones();
-            this.loadCarrusel(lastId);
-            ViewBag.listaAtencion = this.listAtencion;
-            ViewBag.listaCarrusel = this.listAtencionCarrusel;
+            ViewBag.listaAtencion = this.loadAtenciones();
+            ViewBag.listaCarrusel = this.loadCarrusel(lastId);
         }
 
-        private void loadCarrusel(int lastId)
+        private List<Atencion> loadCarrusel(int lastId)
         {
             this.atencionRepository = new AtencionRepository();
-            this.listAtencionCarrusel = this.atencionRepository.FindCarrusel(lastId);
+            ListAtencionCarrusel = this.atencionRepository.FindCarrusel(lastId);
+            return ListAtencionCarrusel;
         }
 
-        private void loadAtenciones()
+        private List<Atencion> loadAtenciones()
         {
             this.atencionRepository = new AtencionRepository();
-            this.listAtencion = this.atencionRepository.FindAtenciones();
+            return this.atencionRepository.FindAtenciones();
         }
         
     }

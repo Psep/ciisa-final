@@ -55,6 +55,17 @@ namespace LlamadoPacientes.Models.Repository
             return this.FindList(null, "sp_list_ultimosllamados");
         }
 
+        public void Update(int idAtencion)
+        {
+            SqlConnection conn = this.GetConnection();
+            SqlCommand cmd = new SqlCommand("sp_update_estado_atendido", connection: conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@idAtencion", SqlDbType.Int).Value = idAtencion;
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }                                                         
+
         private SqlConnection GetConnection()
         {
             SqlConnection conn = new SqlConnection(connectionString: ConnStr);
