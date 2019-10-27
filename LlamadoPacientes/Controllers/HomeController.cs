@@ -11,11 +11,13 @@ namespace LlamadoPacientes.Controllers
     public class HomeController : Controller
     {
         private AtencionRepository atencionRepository;
-        static List<Atencion> ListAtencionCarrusel;
+        private List<Atencion> ListAtencionCarrusel;
+        static Stack<Atencion> Pila;
 
         [HttpGet]
         public ActionResult Index()
         {
+            Pila = new Stack<Atencion>();
             this.init(0);
             ViewBag.lastId = this.LastId();
             this.SetTimer();
@@ -48,20 +50,20 @@ namespace LlamadoPacientes.Controllers
         {
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            //TODO: 40000 = 40 segundos, 20 min = 1200000
-            timer.Interval = 40000;
+            timer.Interval = 1200000;
             timer.Enabled = true;
         }
 
         private static void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            if (ListAtencionCarrusel != null && ListAtencionCarrusel.Count() > 0)
+            int aux = 0;
+
+            while (Pila.Count() > 0 && aux < 4)
             {
-                foreach(Atencion item in ListAtencionCarrusel)
-                {
-                    AtencionRepository repository = new AtencionRepository();
-                    repository.Update(item.id);
-                }
+                Atencion item = Pila.Pop();
+                AtencionRepository repository = new AtencionRepository();
+                repository.Update(item.id);
+                aux++;
             }
         }
 
@@ -74,7 +76,9 @@ namespace LlamadoPacientes.Controllers
         private List<Atencion> loadCarrusel(int lastId)
         {
             this.atencionRepository = new AtencionRepository();
-            ListAtencionCarrusel = this.atencionRepository.FindCarrusel(lastId);
+            this.ListAtencionCarrusel = this.atencionRepository.FindCarrusel(lastId);
+            foreach (Atencion atencion in this.ListAtencionCarrusel) Pila.Push(atencion);
+            
             return ListAtencionCarrusel;
         }
 
