@@ -1,50 +1,89 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace LlamadoPacientes.Models.Repository
 {
     public class AtencionRepository
     {
-        private List<Atencion> generarListaRandom(int tamanio)
-        {
-            List<Atencion> listAtencion = new List<Atencion>();
+        private string ConnStr = ConfigurationManager.ConnectionStrings["LocalSQLServer"].ConnectionString;
 
-            for (int i = 0; i < tamanio; i++)
+        private List<Atencion> FindList(int? lastId, string storedProcedure)
+        {
+            SqlConnection conn = this.GetConnection();
+            SqlCommand cmd = new SqlCommand(storedProcedure, connection: conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            if (lastId != null)
+            {
+                cmd.Parameters.Add("@lastIdAtencion", SqlDbType.Int).Value = lastId;
+            }
+
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Atencion> atenciones = new List<Atencion>();
+
+            while (reader.Read())
             {
                 Atencion atencion = new Atencion();
-                atencion.box = new Box();
-                atencion.box.numero = i + 1;
-                atencion.nombreDoctor = "Dr. Juan" + i;
-                atencion.paciente = new Paciente();
-                atencion.paciente.codigo = i + 1;
-                atencion.paciente.nombreCompleto = "Pepito" + i;
-                listAtencion.Add(atencion);
+                atencion.id = reader.GetInt32(0);
+
+                Box box = new Box(this.GetString(reader, 1));
+                atencion.box = box;
+
+                atencion.nombreDoctor = this.GetString(reader, 2);
+
+                Paciente paciente = new Paciente(this.GetString(reader, 3));
+                atencion.paciente = paciente;
+
+                atenciones.Add(atencion);
             }
 
-            return listAtencion;
+            this.CloseAll(conn, reader: reader);
+
+            return atenciones;
         }
 
-        public List<Atencion> listarCarrusel(int posicion)
+        public List<Atencion> FindCarrusel(int? lastId)
         {
-            List<Atencion> lista = this.generarListaRandom(10);
+            return this.FindList(lastId, "sp_list_carrusel");
+        }
 
-            switch (posicion)
+        public List<Atencion> FindAtenciones()
+        {
+            return this.FindList(null, "sp_list_ultimosllamados");
+        }
+
+        private SqlConnection GetConnection()
+        {
+            SqlConnection conn = new SqlConnection(connectionString: ConnStr);
+            return conn;
+        }
+
+        private void CloseAll(SqlConnection conn, SqlDataReader reader)
+        {
+            if (conn != null)
             {
-                case 1:
-                    return lista.FindAll(x => x.box.numero <= 4);
+                conn.Close();
+            }
 
-                case 2:
-                    return lista.FindAll(x => x.box.numero > 4 && x.box.numero <= 8);
-
-                default:
-                    return lista.FindAll(x => x.box.numero > 8);
+            if (reader != null)
+            {
+                reader.Close();
             }
         }
 
-        public List<Atencion> listarUltimasAtenciones()
+        private string GetString(SqlDataReader reader, int position)
         {
-            List<Atencion> lista = this.generarListaRandom(10);
-            return lista.FindAll(x => x.box.numero > 7);
+            if (!reader.IsDBNull(position))
+            {
+                return reader.GetString(position);
+            }
+            else
+            {
+                return null;
+            }
         }
-
     }
 }

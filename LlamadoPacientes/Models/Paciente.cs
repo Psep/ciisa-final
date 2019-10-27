@@ -2,8 +2,14 @@
 {
     public class Paciente
     {
-        public int codigo { get; set; }
+        public Paciente() { }
 
+        public Paciente(string codigo)
+        {
+            this.codigo = codigo;
+        }
+
+        public string codigo { get; set; }
         public string nombreCompleto { get; set; }
     }
 }

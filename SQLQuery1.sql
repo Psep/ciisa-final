@@ -61,8 +61,9 @@ CREATE PROCEDURE sp_insertar_atencion
 	@nombrePaciente AS VARCHAR(150),
 	@codigoPaciente AS VARCHAR(20)
 	AS
-	DECLARE @idPaciente int
-	DECLARE @existeBox int
+	DECLARE @idPaciente INT
+	DECLARE @existeBox INT
+	DECLARE @cantBox INT
 
 	BEGIN
 		SELECT @existeBox = COUNT(1) FROM dbo.Box b WHERE b.id = @box
@@ -72,6 +73,11 @@ CREATE PROCEDURE sp_insertar_atencion
 		ELSE
 			BEGIN TRANSACTION
 				BEGIN TRY
+					SELECT @cantBox = COUNT(1) FROM dbo.Atencion a WHERE a.idBox = @box
+
+					IF @cantBox > 0
+						UPDATE dbo.Atencion SET idEstado = 2 WHERE idBox = @box
+
 					SELECT TOP 1 @idPaciente = p.id FROM dbo.Paciente p WHERE p.codigo = @codigoPaciente
 
 					IF @idPaciente IS NULL

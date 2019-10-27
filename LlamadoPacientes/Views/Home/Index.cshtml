@@ -4,7 +4,7 @@
     ViewBag.Title = "Home Page";
 }
 <form id="frmHome" method="post" action="@Url.Action("Index", "Home")">
-    <input id="posicion" name="posicion" type="hidden" value="@ViewBag.posicion" />
+    <input id="lastId" name="lastId" type="hidden" value="@ViewBag.lastId" />
     <div class="row">
         <div class="col-md-8">
             <h2>Atención</h2>
@@ -19,10 +19,10 @@
                     </div>
                     <div class="panel-body">
                         <p>
-                            Box N° @carrusel.box.numero
+                            @carrusel.box.nombre
                         </p>
                         <p>
-                            @carrusel.nombreDoctor
+                            Dr. @carrusel.nombreDoctor
                         </p>
                     </div>
                 </div>
@@ -41,10 +41,10 @@
                     </div>
                     <div class="panel-body">
                         <p>
-                            Box N° @atencion.box.numero
+                            @atencion.box.nombre
                         </p>
                         <p>
-                            @atencion.nombreDoctor
+                            Dr. @atencion.nombreDoctor
                         </p>
                     </div>
                 </div>

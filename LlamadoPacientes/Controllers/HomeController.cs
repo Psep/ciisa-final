@@ -18,42 +18,49 @@ namespace LlamadoPacientes.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.posicion = 1;
-
-            this.init(1);
+            this.init(0);
+            ViewBag.lastId = 0;
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(string posicion)
+        public ActionResult Index(string lastId)
         {
-            int pos = Int32.Parse(posicion);
-            if (pos == 3) pos = 0;
-            ViewBag.posicion = pos + 1;
-            this.init(pos);
+            int id = Int32.Parse(lastId);
+
+            this.init(id);
+
+            if (this.listAtencionCarrusel.Count() <= 4)
+            {
+                ViewBag.lastId = 0;
+            }
+            else
+            {
+                ViewBag.lastId = this.listAtencionCarrusel.Last().id;
+            }
+
             return View();
         }
 
-        private void init(int posicion)
+        private void init(int lastId)
         {
             this.loadAtenciones();
-            this.loadCarrusel(posicion);
+            this.loadCarrusel(lastId);
             ViewBag.listaAtencion = this.listAtencion;
             ViewBag.listaCarrusel = this.listAtencionCarrusel;
         }
 
-        private void loadCarrusel(int posicion)
+        private void loadCarrusel(int lastId)
         {
             this.atencionRepository = new AtencionRepository();
-            this.listAtencionCarrusel = this.atencionRepository.listarCarrusel(posicion);
+            this.listAtencionCarrusel = this.atencionRepository.FindCarrusel(lastId);
         }
 
         private void loadAtenciones()
         {
             this.atencionRepository = new AtencionRepository();
-            this.listAtencion = this.atencionRepository.listarUltimasAtenciones();
-            
+            this.listAtencion = this.atencionRepository.FindAtenciones();
         }
         
     }
