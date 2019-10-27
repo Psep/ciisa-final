@@ -13,11 +13,10 @@ namespace LlamadoPacientes.Models.Repository
                 Atencion atencion = new Atencion();
                 atencion.box = new Box();
                 atencion.box.numero = i + 1;
-                atencion.box.profesional = new Profesional();
-                atencion.box.profesional.nombre = "Dr. Juan" + i;
+                atencion.nombreDoctor = "Dr. Juan" + i;
                 atencion.paciente = new Paciente();
                 atencion.paciente.codigo = i + 1;
-                atencion.paciente.nombre = "Pepito" + i;
+                atencion.paciente.nombreCompleto = "Pepito" + i;
                 listAtencion.Add(atencion);
             }
 

@@ -4,7 +4,7 @@ namespace LlamadoPacientes.Models
 {
     public class Atencion
     {
-        public int idAtencion { get; set; }
+        public int id { get; set; }
 
         public DateTime fechaAtencion { get; set; }
 
@@ -12,6 +12,8 @@ namespace LlamadoPacientes.Models
 
         public Box box { get; set; }
 
-        public string estado { get; set; }
+        public int estado { get; set; }
+
+        public string nombreDoctor { get; set; }
     }
 }
