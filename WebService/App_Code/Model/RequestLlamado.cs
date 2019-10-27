@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Xml;
 using System.Xml.Serialization;
 
 /// <summary>
@@ -16,7 +17,7 @@ public class RequestLlamado
         //
     }
 
-    private DateTime _fecha;
+    private DateTime? _fecha;
     public string nombreDoctor { set; get; }
     public int box { set; get; }
     public string nombrePaciente { set; get; }
@@ -28,15 +29,19 @@ public class RequestLlamado
     {
         get
         {
-            return _fecha.ToString("dd-MM-yyyy");
+            return _fecha.HasValue ? XmlConvert.ToString(_fecha.Value, XmlDateTimeSerializationMode.Unspecified) : string.Empty;
         }
-        set { }
+        set { _fecha = Convert.ToDateTime(value); }
     }
 
     [XmlIgnore]
-    public DateTime fecha
+    public DateTime? fecha
     {
         get { return _fecha; }
         set { _fecha = value; }
     }
+
+    public override string ToString() => "[Llamado = fecha: " + this.fecha + ", doc: " 
+        + this.nombreDoctor + ", box: " + this.box + ", codpaciente: " + this.codigoPaciente
+        + ", nombrepaciente: " + this.nombrePaciente + "]";
 }
