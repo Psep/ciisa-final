@@ -10,9 +10,23 @@ public class ResponseLlamado
 {
     public ResponseLlamado()
     {
-        //
-        // TODO: Agregar aquí la lógica del constructor
-        //
+       
+    }
+
+    public ResponseLlamado(int codigo, string mensaje)
+    {
+        this.codigo = codigo;
+        this.mensaje = mensaje;
+    }
+
+    public static ResponseLlamado ResponseOk()
+    {
+        return new ResponseLlamado(0, "Transacción exitosa");
+    }
+
+    public static ResponseLlamado ResponseError()
+    {
+        return new ResponseLlamado(1, "Error al guardar");
     }
 
     public int codigo { set; get; }

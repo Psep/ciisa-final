@@ -13,20 +13,11 @@ using System.Web.Services;
 // [System.Web.Script.Services.ScriptService]
 public class LlamadosPaciente : System.Web.Services.WebService
 {
-
     [WebMethod]
-    public string HelloWorld()
+    public ResponseLlamado CreateAtencion(RequestLlamado request)
     {
-        return "Hola a todos";
-    }
-
-    [WebMethod]
-    public ResponseLlamado AddPaciente(RequestLlamado request)
-    {
-        ResponseLlamado response = new ResponseLlamado();
-        response.codigo = 0;
-        response.mensaje = "Exito";
-        return response;
+        AtencionRepository repository = new AtencionRepository();
+        return repository.Create(request);
     }
 
 }
