@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using LlamadoPacientes.Models;
 using LlamadoPacientes.Models.Repository;
+using System.Timers;
 
 namespace LlamadoPacientes.Controllers
 {
@@ -31,7 +32,7 @@ namespace LlamadoPacientes.Controllers
 
             this.init(id);
 
-            if (this.listAtencionCarrusel.Count() <= 4)
+            if (this.listAtencionCarrusel.Count() < 4)
             {
                 ViewBag.lastId = 0;
             }
@@ -41,6 +42,19 @@ namespace LlamadoPacientes.Controllers
             }
 
             return View();
+        }
+
+        private void SetTimer()
+        {
+            Timer timer = new Timer();
+            timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            timer.Interval = 10000;
+            timer.Enabled = true;
+        }
+
+        private static void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            //TODO terminar Debug
         }
 
         private void init(int lastId)
