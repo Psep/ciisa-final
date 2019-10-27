@@ -28,7 +28,7 @@ public class RequestLlamado
     {
         get
         {
-            return _fecha.ToString("yyyy-MM-ddTHH:mm:ss");
+            return _fecha.ToString("dd-MM-yyyy");
         }
         set { }
     }
